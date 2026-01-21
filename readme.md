@@ -1,10 +1,10 @@
-# Disembark
+# WP Simply Migrator
 
 A WordPress plugin to create backups of your WordPress site.
 
 ## Description
 
-Disembark provides a user-friendly interface within your WordPress admin area to perform comprehensive backups of your site's files and database. It's designed to be efficient, even on very large websites, by using a step-by-step process to scan files and generate backups without overwhelming the server.
+WP Simply Migrator provides a user-friendly interface within your WordPress admin area to perform comprehensive backups of your site's files and database. It's designed to be efficient, even on very large websites, by using a step-by-step process to scan files and generate backups without overwhelming the server.
 
 Features include:
 - A modern interface built with Vue.js.
@@ -19,4 +19,4 @@ Features include:
 1. Download the latest release `.zip` file from the repository.
 2. In your WordPress admin, go to **Plugins > Add New > Upload Plugin**.
 3. Upload the `.zip` file and activate the plugin.
-4. Access the Disembark interface by going to **Tools > Disembark**.
+4. Access the WP Simply Migrator interface by going to **Tools > WP Simply Migrator**.

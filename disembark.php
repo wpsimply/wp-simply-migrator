@@ -1,26 +1,20 @@
 <?php
 /**
- *
- * @link              https://austinginder.com
- * @since             1.0.0
- * @package           Disembark
- *
  * @wordpress-plugin
- * Plugin Name:       Disembark
- * Plugin URI:        https://disembark.host
+ * Plugin Name:       WP Simply Migrator
+ * Plugin URI:        https://migrator.wpsimply.io
  * Description:       Safe journeys as you travel to your next WordPress host.
- * Version:           2.6.0
- * Author:            Austin Ginder
- * Author URI:        https://austinginder.com
+ * Version:           1.0.0
+ * Author:            WP Simply
+ * Author URI:        https://wpsimply.io
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT
- * Text Domain:       disembark
+ * Text Domain:       wp-simply-migrator
  * Domain Path:       /languages
  */
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if ( ! defined( 'ABSPATH' ) ) {
+    die;
 }
 
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
