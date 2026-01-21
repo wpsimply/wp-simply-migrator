@@ -34,9 +34,9 @@ class Run {
     public function register_admin_page() {
         add_management_page(
             '',
-            'Disembark',
+            'WP Simply Migrator',
             'manage_options',
-            'disembark',
+            'wpsimplymigrator',
             [ $this, 'render_admin_page' ]
         );
     }
@@ -47,7 +47,7 @@ class Run {
      */
     public function render_admin_page() {
         ?>
-        <div class="wrap disembark-wrapper">
+        <div class="wrap wpsimplymigrator-wrapper">
             <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
             <?php echo do_shortcode( '[disembark_ui]' ); ?>
         </div>
@@ -78,7 +78,7 @@ class Run {
      * @param string $hook The hook suffix for the current admin page.
      */
     public function enqueue_admin_scripts( $hook ) {
-        if ( 'tools_page_disembark' !== $hook ) {
+        if ( 'tools_page_wpsimplymigrator' !== $hook ) {
             return;
         }
         wp_enqueue_style( 'vuejs-font', "https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" );

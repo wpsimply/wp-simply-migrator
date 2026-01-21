@@ -28,12 +28,13 @@ require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
  * @param array $links An array of existing action links for the plugin.
  * @return array An array of action links with the new "Settings" link added.
  */
-function disembark_add_settings_link( $links ) {
-    $settings_link = '<a href="tools.php?page=disembark">' . __( 'Settings' ) . '</a>';
+function wpsimplymigrator_add_settings_link( $links ) {
+    $settings_link = '<a href="tools.php?page=wpsimplymigrator">' . __( 'Settings' ) . '</a>';
     array_unshift( $links, $settings_link );
     return $links;
 }
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'disembark_add_settings_link' );
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wpsimplymigrator_add_settings_link' );
 
-new WPSimply\Migrator\Run();
-new WPSimply\Migrator\Updater();
+add_action( 'plugins_loaded', static function () {
+    new WPSimply\Migrator\Run();
+});
