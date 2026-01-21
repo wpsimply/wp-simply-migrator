@@ -7,10 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'Disembark\\Backup' => $baseDir . '/app/Backup.php',
-    'Disembark\\Command' => $baseDir . '/app/Command.php',
-    'Disembark\\Run' => $baseDir . '/app/Run.php',
-    'Disembark\\Token' => $baseDir . '/app/Token.php',
-    'Disembark\\Updater' => $baseDir . '/app/Updater.php',
-    'Disembark\\User' => $baseDir . '/app/User.php',
 );

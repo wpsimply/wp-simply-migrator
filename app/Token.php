@@ -1,6 +1,6 @@
 <?php
 
-namespace Disembark;
+namespace WPSimply\Migrator;
 
 class Token {
 
