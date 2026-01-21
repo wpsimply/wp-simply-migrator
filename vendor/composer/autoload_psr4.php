@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Disembark\\' => array($baseDir . '/app'),
+    'Wpsimply\\Migrator\\' => array($baseDir . '/app'),
 );

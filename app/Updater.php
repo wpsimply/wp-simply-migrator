@@ -1,5 +1,5 @@
 <?php
-namespace Disembark;
+namespace Wpsimply\Migrator;
 
 class Updater {
 

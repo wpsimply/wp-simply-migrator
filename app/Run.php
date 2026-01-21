@@ -1,6 +1,6 @@
 <?php
 
-namespace Disembark;
+namespace Wpsimply\Migrator;
 
 class Run {
 
@@ -23,8 +23,8 @@ class Run {
             \WP_CLI::add_command( 'disembark', new class {}, [
                 'shortdesc' => 'Disembark helper commands.',
             ] );
-            \WP_CLI::add_command( 'disembark token', [ 'Disembark\Command', "token" ]  );
-            \WP_CLI::add_command( 'disembark cli-info', [ 'Disembark\Command', 'cli_info' ] );
+            \WP_CLI::add_command( 'disembark token', [ 'Wpsimply\Migrator\Command', "token" ]  );
+            \WP_CLI::add_command( 'disembark cli-info', [ 'Wpsimply\Migrator\Command', 'cli_info' ] );
         }
     }
 
