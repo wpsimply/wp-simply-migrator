@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Wpsimply\\Migrator\\' => array($baseDir . '/app'),
+    'WPSimply\\Migrator\\' => array($baseDir . '/app'),
 );

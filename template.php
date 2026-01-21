@@ -488,7 +488,7 @@ createApp({
             snackbar: { show: false, message: "" },
             manifest_progress: { fetched: 0, total: 0, totalFiles: 0 },
             scan_progress: { total: 1, scanned: 0, status: 'initializing' },
-            api_token: "<?php echo \Wpsimply\Migrator\Token::get(); ?>",
+            api_token: "<?php echo \WPSimply\Migrator\Token::get(); ?>",
             home_url: "<?php echo home_url(); ?>",
             backup_token: "",
             database: [],

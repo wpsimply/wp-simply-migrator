@@ -9,12 +9,12 @@ class ComposerStaticInit87069041d9fa1407c7a2a0f3e37d3cd4
     public static $prefixLengthsPsr4 = array (
         'W' =>
         array (
-            'Wpsimply\\Migrator\\' => 18,
+            'WPSimply\\Migrator\\' => 18,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Wpsimply\\Migrator\\' =>
+        'WPSimply\\Migrator\\' =>
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),

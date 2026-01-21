@@ -1,5 +1,5 @@
 <?php
-namespace Wpsimply\Migrator;
+namespace WPSimply\Migrator;
 
 class Updater {
 

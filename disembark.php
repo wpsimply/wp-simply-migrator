@@ -41,5 +41,5 @@ function disembark_add_settings_link( $links ) {
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'disembark_add_settings_link' );
 
-new Wpsimply\Migrator\Run();
-new Wpsimply\Migrator\Updater();
+new WPSimply\Migrator\Run();
+new WPSimply\Migrator\Updater();
