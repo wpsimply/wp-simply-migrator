@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @wordpress-plugin
  * Plugin Name:       WP Simply Migrator
@@ -13,11 +14,11 @@
  * Domain Path:       /languages
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
     die;
 }
 
-require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+require plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 
 /**
  * Adds a "Settings" link to the plugin's action links on the Plugins page.
@@ -28,13 +29,14 @@ require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
  * @param array $links An array of existing action links for the plugin.
  * @return array An array of action links with the new "Settings" link added.
  */
-function wpsimplymigrator_add_settings_link( $links ) {
-    $settings_link = '<a href="tools.php?page=wpsimplymigrator">' . __( 'Settings' ) . '</a>';
-    array_unshift( $links, $settings_link );
+function wpsimplymigrator_add_settings_link($links)
+{
+    $settings_link = '<a href="tools.php?page=wpsimplymigrator">' . __('Settings') . '</a>';
+    array_unshift($links, $settings_link);
     return $links;
 }
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wpsimplymigrator_add_settings_link' );
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'wpsimplymigrator_add_settings_link');
 
-add_action( 'plugins_loaded', static function () {
+add_action('plugins_loaded', static function () {
     new WPSimply\Migrator\Run();
 });
