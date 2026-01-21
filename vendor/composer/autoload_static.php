@@ -7,14 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInit87069041d9fa1407c7a2a0f3e37d3cd4
 {
     public static $prefixLengthsPsr4 = array (
-        'W' =>
+        'W' => 
         array (
             'WPSimply\\Migrator\\' => 18,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'WPSimply\\Migrator\\' =>
+        'WPSimply\\Migrator\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
@@ -22,6 +22,12 @@ class ComposerStaticInit87069041d9fa1407c7a2a0f3e37d3cd4
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'WPSimply\\Migrator\\Backup' => __DIR__ . '/../..' . '/app/Backup.php',
+        'WPSimply\\Migrator\\Command' => __DIR__ . '/../..' . '/app/Command.php',
+        'WPSimply\\Migrator\\Run' => __DIR__ . '/../..' . '/app/Run.php',
+        'WPSimply\\Migrator\\Token' => __DIR__ . '/../..' . '/app/Token.php',
+        'WPSimply\\Migrator\\Updater' => __DIR__ . '/../..' . '/app/Updater.php',
+        'WPSimply\\Migrator\\User' => __DIR__ . '/../..' . '/app/User.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

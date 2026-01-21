@@ -7,4 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'WPSimply\\Migrator\\Backup' => $baseDir . '/app/Backup.php',
+    'WPSimply\\Migrator\\Command' => $baseDir . '/app/Command.php',
+    'WPSimply\\Migrator\\Run' => $baseDir . '/app/Run.php',
+    'WPSimply\\Migrator\\Token' => $baseDir . '/app/Token.php',
+    'WPSimply\\Migrator\\Updater' => $baseDir . '/app/Updater.php',
+    'WPSimply\\Migrator\\User' => $baseDir . '/app/User.php',
 );
