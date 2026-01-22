@@ -8,7 +8,7 @@ class Command
     {
         if (isset($assoc_args['generate'])) {
             $token = wp_generate_password(42, false);
-            update_option("disembark_token", $token);
+            update_option("wpsimplymigrator_token", $token);
             \WP_CLI::success("New token generated and saved.");
         }
         $token = Token::get();
@@ -19,6 +19,6 @@ class Command
     {
         $token    = Token::get();
         $home_url = home_url();
-        \WP_CLI::log("disembark connect $home_url $token");
+        \WP_CLI::log("wpsimplymigrator connect $home_url $token");
     }
 }

@@ -23,7 +23,7 @@ require plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 /**
  * Adds a "Settings" link to the plugin's action links on the Plugins page.
  *
- * This function creates a direct link to the Disembark admin page from the main
+ * This function creates a direct link to the WP Simply Migrator admin page from the main
  * list of installed plugins, making it easier for users to access.
  *
  * @param array $links An array of existing action links for the plugin.

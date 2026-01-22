@@ -1,10 +1,10 @@
 /* Admin Page Styles */
-body.tools_page_disembark,
-body.tools_page_disembark .v-application.v-theme--light {
+body.tools_page_wpsimplymigrator,
+body.tools_page_wpsimplymigrator .v-application.v-theme--light {
     background-color: #e0f1fa;
 }
 
-.disembark-wrapper {
+.wpsimplymigrator-wrapper {
     position: relative;
     margin: 0px;
 }
@@ -60,8 +60,8 @@ pre[class*="language-"] code {
 }
 
 /* Dark Mode Body */
-body.disembark-dark-mode.tools_page_disembark,
-body.disembark-dark-mode #wpbody-content {
+body.wpsimplymigrator-dark-mode.tools_page_wpsimplymigrator,
+body.wpsimplymigrator-dark-mode #wpbody-content {
     background-color: #03141e !important;
     color: #e0f1fa;
 }

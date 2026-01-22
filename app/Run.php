@@ -21,12 +21,12 @@ class Run
         add_action('rest_api_init', [ $this, 'register_rest_endpoints' ]);
 
         if (defined('WP_CLI') && \WP_CLI) {
-            \WP_CLI::add_command('disembark', new class {
+            \WP_CLI::add_command('wpsimplymigrator', new class {
             }, [
-                'shortdesc' => 'Disembark helper commands.',
+                'shortdesc' => 'WP Simply Migrator helper commands.',
             ]);
-            \WP_CLI::add_command('disembark token', [ 'WPSimply\Migrator\Command', "token" ]);
-            \WP_CLI::add_command('disembark cli-info', [ 'WPSimply\Migrator\Command', 'cli_info' ]);
+            \WP_CLI::add_command('wpsimplymigrator token', [ 'WPSimply\Migrator\Command', "token" ]);
+            \WP_CLI::add_command('wpsimplymigrator cli-info', [ 'WPSimply\Migrator\Command', 'cli_info' ]);
         }
     }
 
@@ -45,7 +45,7 @@ class Run
     }
 
     /**
-     * Renders the main container for the Disembark admin page.
+     * Renders the main container for the WP Simply Migrator admin page.
      * The Vue.js application is injected into this page via a shortcode.
      */
     public function render_admin_page()
@@ -53,7 +53,7 @@ class Run
         ?>
         <div class="wrap wpsimplymigrator-wrapper">
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-            <?php echo do_shortcode('[disembark_ui]'); ?>
+            <?php echo do_shortcode('[wpsimplymigrator_ui]'); ?>
         </div>
         <?php
     }
@@ -63,7 +63,7 @@ class Run
      */
     public function register_shortcode()
     {
-        add_shortcode('disembark_ui', [ $this, 'render_shortcode_ui' ]);
+        add_shortcode('wpsimplymigrator_ui', [ $this, 'render_shortcode_ui' ]);
     }
 
     /**
@@ -91,7 +91,7 @@ class Run
         wp_enqueue_style('vuejs-font', "https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900");
         wp_enqueue_style('vuejs-icons', "https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css");
         wp_enqueue_style('vuetify', "https://cdn.jsdelivr.net/npm/vuetify@v3.6.10/dist/vuetify.min.css");
-        wp_enqueue_style('disembark-styles', $this->plugin_url . 'css/style.css');
+        wp_enqueue_style('wpsimplymigrator-styles', $this->plugin_url . 'css/style.css');
     }
 
     // --- REST API Endpoints ---
@@ -99,51 +99,51 @@ class Run
 
     function register_rest_endpoints()
     {
-        register_rest_route('disembark/v1', '/backup-size', [
+        register_rest_route('wpsimplymigrator/v1', '/backup-size', [
             'methods'  => 'GET',
             'callback' => [ $this, 'get_backup_size' ]
         ]);
-        register_rest_route('disembark/v1', '/database', [
+        register_rest_route('wpsimplymigrator/v1', '/database', [
             'methods'  => 'GET',
             'callback' => [ $this, 'database' ]
         ]);
-        register_rest_route('disembark/v1', '/regenerate-manifest', [
+        register_rest_route('wpsimplymigrator/v1', '/regenerate-manifest', [
             'methods'  => 'POST',
             'callback' => [ $this, 'regenerate_manifest' ]
         ]);
-        register_rest_route('disembark/v1', '/zip-sync-files', [
+        register_rest_route('wpsimplymigrator/v1', '/zip-sync-files', [
             'methods'  => 'POST',
             'callback' => [ $this, 'zip_sync_files' ]
         ]);
-        register_rest_route('disembark/v1', '/zip-database', [
+        register_rest_route('wpsimplymigrator/v1', '/zip-database', [
             'methods'  => 'POST',
             'callback' => [ $this, 'zip_database' ]
         ]);
-        register_rest_route('disembark/v1', '/regenerate-token', [
+        register_rest_route('wpsimplymigrator/v1', '/regenerate-token', [
             'methods'  => 'POST',
             'callback' => [ $this, 'regenerate_token' ]
         ]);
-        register_rest_route('disembark/v1', '/manifest', [
+        register_rest_route('wpsimplymigrator/v1', '/manifest', [
             'methods'  => 'GET',
             'callback' => [ $this, 'get_manifest' ]
         ]);
-        register_rest_route('disembark/v1', '/export/database/(?P<table>[a-zA-Z0-9-_]+)', [
+        register_rest_route('wpsimplymigrator/v1', '/export/database/(?P<table>[a-zA-Z0-9-_]+)', [
             'methods'  => 'POST',
             'callback' => [ $this, 'export_database' ]
         ]);
-        register_rest_route('disembark/v1', '/export-database-batch', [
+        register_rest_route('wpsimplymigrator/v1', '/export-database-batch', [
             'methods'  => 'POST',
             'callback' => [ $this, 'export_database_batch' ]
         ]);
-        register_rest_route('disembark/v1', '/stream-file', [
+        register_rest_route('wpsimplymigrator/v1', '/stream-file', [
             'methods'  => 'POST',
             'callback' => [ $this, 'stream_file' ]
         ]);
-        register_rest_route('disembark/v1', '/cleanup', [
+        register_rest_route('wpsimplymigrator/v1', '/cleanup', [
             'methods'  => 'GET',
             'callback' => [ $this, 'cleanup' ]
         ]);
-        register_rest_route('disembark/v1', '/cleanup-file', [
+        register_rest_route('wpsimplymigrator/v1', '/cleanup-file', [
             'methods'  => 'POST',
             'callback' => [ $this, 'cleanup_file' ]
         ]);
@@ -155,7 +155,7 @@ class Run
             return new \WP_Error('rest_forbidden', 'Sorry, you are not allowed to do that.', [ 'status' => 403 ]);
         }
 
-        $directory = wp_upload_dir()["basedir"] . "/disembark/";
+        $directory = wp_upload_dir()["basedir"] . "/wpsimplymigrator/";
         $size = 0;
 
         if (is_dir($directory)) {
@@ -169,7 +169,7 @@ class Run
             }
         }
 
-        $last_scan = get_option('disembark_last_scan_stats', null);
+        $last_scan = get_option('wpsimplymigrator_last_scan_stats', null);
 
         return [
             'size' => $size,
@@ -216,7 +216,7 @@ class Run
         $step             = $request['step'] ?? 'initiate';
         $chunk_size_mb    = 150;
         $default_excludes = [
-            "wp-content/uploads/disembark",
+            "wp-content/uploads/wpsimplymigrator",
             "wp-content/updraft",
             "wp-content/ai1wm-backups",
             "wp-content/backups-dup-lite",
@@ -277,7 +277,7 @@ class Run
         }
 
         $token = wp_generate_password(42, false);
-        update_option("disembark_token", $token);
+        update_option("wpsimplymigrator_token", $token);
 
         return [ 'token' => $token ];
     }
@@ -437,7 +437,7 @@ class Run
         if (! User::allowed($request)) {
             return new \WP_Error('rest_forbidden', 'Sorry, you are not allowed to do that.', [ 'status' => 403 ]);
         }
-        $directory = wp_upload_dir()["basedir"] . "/disembark/";
+        $directory = wp_upload_dir()["basedir"] . "/wpsimplymigrator/";
         $files     = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($directory, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST
