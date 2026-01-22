@@ -333,7 +333,7 @@
     <v-card class="mt-6" flat rounded="0" density="compact">
         <v-toolbar flat density="compact" class="text-body-2" color="primary">
             <v-icon icon="mdi-console" class="mr-2 ml-4"></v-icon>
-            For reuseable backups use the Disembark CLI then use the commands below after configuring your exclusions.
+            For reuseable backups use the WP Simply Migrator CLI then use the commands below after configuring your exclusions.
         </v-toolbar>
         
         <v-card-text>
@@ -346,7 +346,7 @@
                             class="text-primary font-weight-bold" 
                             style="cursor: help; text-decoration: underline dotted;"
                         >
-                            Disembark CLI
+                            WP Simply Migrator CLI
                         </span>
                     </template>
                     <v-sheet elevation="4" rounded min-width="450" class="pa-0">
@@ -1101,10 +1101,10 @@ createApp({
             const domain = this.home_url.replace(/^https?:\/\//, '').replace(/\/$/, '');
             
             // Base Commands
-            const connectCommand = `disembark connect ${this.home_url} ${this.api_token}`;
-            let backupCommand = `disembark backup ${this.home_url}`;
-            let syncCommand = `disembark sync ${this.home_url} "${domain}"`;
-            let ncduCommand = `disembark ncdu ${this.home_url}`;
+            const connectCommand = `wpsimplymigrator connect ${this.home_url} ${this.api_token}`;
+            let backupCommand = `wpsimplymigrator backup ${this.home_url}`;
+            let syncCommand = `wpsimplymigrator sync ${this.home_url} "${domain}"`;
+            let ncduCommand = `wpsimplymigrator ncdu ${this.home_url}`;
 
             // Add File Exclusions
             const selectedPaths = new Set(this.excluded_nodes.map(node => node.id));
@@ -1166,7 +1166,7 @@ createApp({
             };
         },
         cliInstall() {
-            return `wget https://github.com/DisembarkHost/disembark-cli/releases/latest/download/disembark.phar\nchmod +x disembark.phar\nsudo mv disembark.phar /usr/local/bin/disembark`;
+            return `wget https://github.com/wpsimply/wp-simply-migrator-cli/releases/latest/download/wpsimplymigrator.phar\nchmod +x wpsimplymigrator.phar\nsudo mv wpsimplymigrator.phar /usr/local/bin/wpsimplymigrator`;
         },
         downloadUrl() {
             if (!this.explorer.selected_node) return '#';
@@ -1246,7 +1246,7 @@ createApp({
             if ( this.backup_token == '' || ! this.backup_ready ) { return "" }
             
             // 1. Base Runner Command
-            let cmd = `curl -sL https://disembark.host/run | bash -s -- backup "${this.home_url}" --token="${this.api_token}" --session-id="${this.backup_token}"`;
+            let cmd = `curl -sL https://migrator.wpsimply.io/run | bash -s -- backup "${this.home_url}" --token="${this.api_token}" --session-id="${this.backup_token}"`;
 
             // 2. Database Exclusions
             // Calculate tables that are NOT in the included list

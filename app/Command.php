@@ -19,6 +19,6 @@ class Command
     {
         $token    = Token::get();
         $home_url = home_url();
-        \WP_CLI::log("disembark connect $home_url $token");
+        \WP_CLI::log("wpsimplymigrator connect $home_url $token");
     }
 }
