@@ -80,7 +80,7 @@
     </div>
     <v-main>
     <v-container>
-    <div style="position: relative;" id="disembark-app-container">
+    <div style="position: relative;" id="wpsimplymigrator-app-container">
     <v-card v-if="ui_state === 'initial' || ui_state === 'connected'" :style="{ 'max-width': backup_ready ? '750px' : '600px', margin: '0px auto 20px auto', position: 'relative' }" class="pa-3">
         <v-card-text>
         <v-row v-if="ui_state === 'initial'">
@@ -129,7 +129,7 @@
     </v-card-text>
     </v-card>
     <v-overlay v-model="loading" contained persistent attach="#app" opacity="0.7" class="align-center justify-center">
-        <div class="text-center text-white text-body-1 disembark-overlay-content" style="width: 500px; max-width: 90vw;">
+        <div class="text-center text-white text-body-1 wpsimplymigrator-overlay-content" style="width: 500px; max-width: 90vw;">
             <div class="mb-5"><strong>Backup in progress...</strong></div>
 
             <div v-if="included_tables.length > 0 && this.options.include_database" class="mb-4">
@@ -150,7 +150,7 @@
         </div>
     </v-overlay>
     <v-overlay v-model="analyzing" contained persistent attach="#app" opacity="0.7" class="align-center justify-center">
-        <div class="text-center text-white text-body-1 disembark-overlay-content">
+        <div class="text-center text-white text-body-1 wpsimplymigrator-overlay-content">
             <div v-if="scan_progress.status === 'scanning'">
                 <div><strong>Scanning file structure...</strong></div>
                 <v-progress-circular indeterminate color="white" class="my-5" :size="32" :width="2"></v-progress-circular>
@@ -564,7 +564,7 @@ createApp({
         },
         async fetchBackupSize() {
             try {
-                const response = await axios.get(`/wp-json/disembark/v1/backup-size?token=${this.api_token}`);
+                const response = await axios.get(`/wp-json/wpsimplymigrator/v1/backup-size?token=${this.api_token}`);
                 this.backup_disk_size = response.data.size;
                 this.last_scan_stats = response.data.scan_stats;
             } catch (error) {
@@ -576,7 +576,7 @@ createApp({
         async cleanupBackups() {
             this.cleaning_up = true;
             try {
-                await axios.get(`/wp-json/disembark/v1/cleanup?token=${this.api_token}`);
+                await axios.get(`/wp-json/wpsimplymigrator/v1/cleanup?token=${this.api_token}`);
                 this.snackbar.message = "Temporary files have been cleaned up.";
                 this.snackbar.show = true;
                 await this.fetchBackupSize(); // Refresh size
@@ -610,7 +610,7 @@ createApp({
             this.regenerating_token = true;
             try {
                 // Pass the current token in the POST body for authorization
-                const response = await axios.post(`/wp-json/disembark/v1/regenerate-token`, { token: this.api_token });
+                const response = await axios.post(`/wp-json/wpsimplymigrator/v1/regenerate-token`, { token: this.api_token });
                 this.api_token = response.data.token; // Update the app's token
                 this.snackbar.message = "New token successfully generated.";
                 this.snackbar.show = true;
@@ -626,7 +626,7 @@ createApp({
             const newTheme = this.$vuetify.theme.global.current.dark ? 'light' : 'dark';
             this.$vuetify.theme.global.name = newTheme;
             localStorage.setItem('theme', newTheme);
-            document.body.classList.toggle('disembark-dark-mode', newTheme === 'dark');
+            document.body.classList.toggle('wpsimplymigrator-dark-mode', newTheme === 'dark');
         },
         showExplorer() {
             this.explorer.show = true;
@@ -673,7 +673,7 @@ createApp({
                 this.explorer.preview_type = 'image';
                 try {
                     // Use axios.post
-                    const response = await axios.post( '/wp-json/disembark/v1/stream-file', postData, { responseType: 'blob' });
+                    const response = await axios.post( '/wp-json/wpsimplymigrator/v1/stream-file', postData, { responseType: 'blob' });
                     this.explorer.preview_content = URL.createObjectURL(response.data);
                 } catch (error) {
                     this.explorer.preview_content = 'Error loading image.';
@@ -688,7 +688,7 @@ createApp({
                         throw new Error('File is too large to preview.');
                     }
                     // Use axios.post
-                    const response = await axios.post('/wp-json/disembark/v1/stream-file', postData );
+                    const response = await axios.post('/wp-json/wpsimplymigrator/v1/stream-file', postData );
                     let content = (typeof response.data === 'object' && response.data !== null) ? JSON.stringify(response.data, null, 2) : response.data;
                     let language = (extension === 'js') ? 'javascript' : extension;
                     if (Prism.languages[language]) {
@@ -719,7 +719,7 @@ createApp({
 
             try {
                 const response = await axios.post(
-                    '/wp-json/disembark/v1/stream-file',
+                    '/wp-json/wpsimplymigrator/v1/stream-file',
                     postData,
                     { responseType: 'blob' }
                 );
@@ -1005,7 +1005,7 @@ createApp({
             this.manifest_progress = { fetched: 0, total: 0 };
             this.scan_progress = { total: 1, scanned: 0, status: 'initializing' };
             try {
-                const dbResponse = await axios.get(`/wp-json/disembark/v1/database?token=${this.api_token}`);
+                const dbResponse = await axios.get(`/wp-json/wpsimplymigrator/v1/database?token=${this.api_token}`);
                 if (!dbResponse.data || dbResponse.data.error) {
                     throw new Error(dbResponse.data.error || "Could not fetch database info.");
                 }
@@ -1037,11 +1037,11 @@ createApp({
         },
         async runManifestGeneration() {
             try {
-                await axios.post('/wp-json/disembark/v1/regenerate-manifest', { token: this.api_token, backup_token: this.backup_token, step: 'initiate' });
+                await axios.post('/wp-json/wpsimplymigrator/v1/regenerate-manifest', { token: this.api_token, backup_token: this.backup_token, step: 'initiate' });
                 this.scan_progress.status = 'scanning';
                 let scan_complete = false;
                 while (!scan_complete) {
-                    const scanResponse = await axios.post('/wp-json/disembark/v1/regenerate-manifest', { token: this.api_token, backup_token: this.backup_token, step: 'scan', exclude_files: this.options.exclude_files });
+                    const scanResponse = await axios.post('/wp-json/wpsimplymigrator/v1/regenerate-manifest', { token: this.api_token, backup_token: this.backup_token, step: 'scan', exclude_files: this.options.exclude_files });
                     if (scanResponse.data.status === 'scan_complete') {
                         scan_complete = true;
                     }
@@ -1050,16 +1050,16 @@ createApp({
                 }
 
                 this.scan_progress.status = 'chunking';
-                const chunkifyResponse = await axios.post('/wp-json/disembark/v1/regenerate-manifest', { token: this.api_token, backup_token: this.backup_token, step: 'chunkify' });
+                const chunkifyResponse = await axios.post('/wp-json/wpsimplymigrator/v1/regenerate-manifest', { token: this.api_token, backup_token: this.backup_token, step: 'chunkify' });
                 const total_chunks = chunkifyResponse.data.total_chunks;
                 this.manifest_progress.total = total_chunks;
 
                 for (let i = 1; i <= total_chunks; i++) {
-                    await axios.post('/wp-json/disembark/v1/regenerate-manifest', { token: this.api_token, backup_token: this.backup_token, step: 'process_chunk', chunk: i });
+                    await axios.post('/wp-json/wpsimplymigrator/v1/regenerate-manifest', { token: this.api_token, backup_token: this.backup_token, step: 'process_chunk', chunk: i });
                     this.manifest_progress.fetched = i;
                 }
 
-                const finalizeResponse = await axios.post('/wp-json/disembark/v1/regenerate-manifest', { token: this.api_token, backup_token: this.backup_token, step: 'finalize' });
+                const finalizeResponse = await axios.post('/wp-json/wpsimplymigrator/v1/regenerate-manifest', { token: this.api_token, backup_token: this.backup_token, step: 'finalize' });
                 return finalizeResponse.data;
             } catch (error) {
                 console.error("Manifest generation failed:", error);
@@ -1170,7 +1170,7 @@ createApp({
         },
         downloadUrl() {
             if (!this.explorer.selected_node) return '#';
-            return `/wp-json/disembark/v1/stream-file?token=${encodeURIComponent(this.api_token)}&file=${encodeURIComponent(this.explorer.selected_node.id)}`;
+            return `/wp-json/wpsimplymigrator/v1/stream-file?token=${encodeURIComponent(this.api_token)}&file=${encodeURIComponent(this.explorer.selected_node.id)}`;
         },
         isDarkMode() {
             if (!this.$vuetify || !this.$vuetify.theme) return false;
@@ -1345,7 +1345,7 @@ createApp({
         if (storedTheme) {
             this.$vuetify.theme.global.name = storedTheme;
             if (storedTheme === 'dark') {
-                document.body.classList.add('disembark-dark-mode');
+                document.body.classList.add('wpsimplymigrator-dark-mode');
             }
         }
         this.fetchBackupSize();

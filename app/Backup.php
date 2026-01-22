@@ -14,8 +14,8 @@ class Backup
     {
         $bytes             = random_bytes(20);
         $this->token       = empty($token) ? substr(bin2hex($bytes), 0, -28) : $token;
-        $this->backup_path = wp_upload_dir()["basedir"] . "/disembark/{$this->token}";
-        $this->backup_url  = wp_upload_dir()["baseurl"] . "/disembark/{$this->token}";
+        $this->backup_path = wp_upload_dir()["basedir"] . "/wpsimplymigrator/{$this->token}";
+        $this->backup_url  = wp_upload_dir()["baseurl"] . "/wpsimplymigrator/{$this->token}";
         if (! file_exists($this->backup_path)) {
             mkdir($this->backup_path, 0777, true);
         }
@@ -319,7 +319,7 @@ class Backup
         }
 
         // Cache the global stats for the CLI info command
-        update_option('disembark_last_scan_stats', [
+        update_option('wpsimplymigrator_last_scan_stats', [
             'total_size'  => $grand_total_size,
             'total_files' => $grand_total_files,
             'timestamp'   => time()
