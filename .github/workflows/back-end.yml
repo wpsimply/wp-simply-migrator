@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow
+
+name: "Back-end"
+
+on:
+    pull_request: null
+    push:
+        branches:
+        - "master"
+
+permissions:
+    contents: "read" # Private repositories need read permission
+
+env:
+    COMPOSER_FUND: "0"
+
+jobs:
+    syntax_errors:
+        name: "1️⃣ Syntax errors"
+        runs-on: "ubuntu-24.04"
+        timeout-minutes: 5
+        steps:
+        -
+            name: "Set up PHP"
+            uses: "shivammathur/setup-php@v2"
+            with:
+                php-version: "7.4"
+                coverage: "none"
+                tools: "parallel-lint"
+        -
+            name: "Checkout repository"
+            uses: "actions/checkout@v5"
+        -
+            name: "Check source code for syntax errors"
+            run: "composer exec --no-interaction -- parallel-lint *.php app/"
